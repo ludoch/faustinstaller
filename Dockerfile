@@ -82,7 +82,7 @@ ln -s /android/ndk-bundle /opt/android/ndk
 ########################################################################
 
 # faustservice first as it changes less often
-RUN git clone https://github.com/ludoch/faustservice.git; \
+RUN git clone https://github.com/grame-cncm/faustservice.git; \
 git -C faustservice checkout server; \
 make -C faustservice
 
@@ -100,5 +100,6 @@ make -C faust install
 EXPOSE 8080
 WORKDIR /faustservice
 RUN mkdir /tmp/sessions
-CMD ./faustweb --port 8080
+RUN chmod 777 /tmp/sessions
+CMD ./faustweb --port 8080 --sessions-dir /tmp/sessions
 
