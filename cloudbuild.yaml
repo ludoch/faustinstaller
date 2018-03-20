@@ -1,0 +1,12 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['pull', 'gcr.io/grame-faust/github-ludoch-faustinstaller:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+            'build',
+            '--cache-from',
+            'gcr.io/grame-faust/github-ludoch-faustinstaller:latest',
+            '-t', 'gcr.io/$PROJECT_ID/latest-image:latest',
+            '.'
+        ]
+images: ['gcr.io/grame-faust/github-ludoch-faustinstaller:latest']
