@@ -36,7 +36,7 @@ apt-get install -y faust2pd faust2pd-extra python-certbot-apache
 
 # We install the MAX SDK
 RUN wget https://cycling74.com/download/max-sdk-7.1.0.zip; \
-unzip max-sdk-7.1.0.zip; \
+unzip -qq max-sdk-7.1.0.zip; \
 cp -r max-sdk-7.1.0/source/c74support /usr/local/include/
 
 # We install the Puredata dll for windows
@@ -46,7 +46,7 @@ cp pd.dll /usr/lib/i686-w64-mingw32/pd/
 
 # We install the VST SDK
 RUN wget http://www.steinberg.net/sdk_downloads/vstsdk365_12_11_2015_build_67.zip; \
-unzip vstsdk365_12_11_2015_build_67.zip -d /usr/local/include/; \
+unzip -qq vstsdk365_12_11_2015_build_67.zip -d /usr/local/include/; \
 mv /usr/local/include/VST3\ SDK /usr/local/include/vstsdk2.4
 
 # Fix execution QT5 targets
@@ -59,9 +59,9 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /usr/bin/qmake-qt5
 
 RUN wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip; \
 mkdir android; \
-unzip sdk-tools-linux-3859397.zip -d android; \
+unzip -qq sdk-tools-linux-3859397.zip -d android; \
 install -d /root/.android/; \
-touch /root/.android/repositories.cfg
+touch /root/.android/repositories.cfg  ; rm sdk-tools-linux-3859397.zip
 
 ## sign licenses
 RUN	yes | android/tools/bin/sdkmanager --licenses
