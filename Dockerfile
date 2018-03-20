@@ -9,14 +9,15 @@
 ########################################################################
 
 FROM ubuntu:16.04
-RUN apt-get update
 
 ########################################################################
 # We first install all the dependencies but Android
 ########################################################################
 
 # We first install all the ubuntu packages
-RUN DEBIAN_FRONTEND='noninteractive' apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND='noninteractive'  \
+ apt-get -q update \
+ && apt-get -y -q --no-install-recommends install \
 build-essential pkg-config git cmake libmicrohttpd-dev llvm-3.8 llvm-3.8-dev libssl-dev \
 software-properties-common zip unzip wget ncurses-dev libsndfile-dev libedit-dev libcurl4-openssl-dev vim-common \
 libasound2-dev libjack-jackd2-dev libgtk2.0-dev libqt4-dev \
@@ -24,7 +25,9 @@ ladspa-sdk dssi-dev lv2-dev libboost-dev libcsound64-dev supercollider-dev pured
 inkscape graphviz qtbase5-dev qt5-qmake libqt5x11extras5-dev texlive-full \
 libarchive-dev libboost-all-dev \
 php libapache2-mod-php qrencode highlight apache2 ruby ruby-dev nodejs \
-openjdk-8-jdk g++-mingw-w64 g++-multilib
+openjdk-8-jdk g++-mingw-w64 g++-multilib  \
+ && apt-get clean \
+ && rm /var/lib/apt/lists/*_*
 
 # Then additional packages from ppa repositories
 RUN add-apt-repository -y "ppa:dr-graef/pure-lang.xenial"; \
@@ -80,7 +83,7 @@ ln -s /android/ndk-bundle /opt/android/ndk
 ########################################################################
 
 # faustservice first as it changes less often
-RUN git clone https://github.com/grame-cncm/faustservice.git; \
+RUN git clone https://github.com/ludoch/faustservice.git; \
 git -C faustservice checkout server; \
 make -C faustservice
 
