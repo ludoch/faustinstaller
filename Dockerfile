@@ -9,15 +9,14 @@
 ########################################################################
 
 FROM ubuntu:16.04
+RUN apt-get update
 
 ########################################################################
 # We first install all the dependencies but Android
 ########################################################################
 
 # We first install all the ubuntu packages
-RUN DEBIAN_FRONTEND='noninteractive'  \
- apt-get -q update \
- && apt-get install -y --no-install-recommends \
+RUN DEBIAN_FRONTEND='noninteractive' apt-get install -y --no-install-recommends \
 build-essential pkg-config git cmake libmicrohttpd-dev llvm-3.8 llvm-3.8-dev libssl-dev \
 software-properties-common zip unzip wget ncurses-dev libsndfile-dev libedit-dev libcurl4-openssl-dev vim-common \
 libasound2-dev libjack-jackd2-dev libgtk2.0-dev libqt4-dev \
