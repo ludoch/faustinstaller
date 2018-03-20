@@ -99,5 +99,6 @@ make -C faust install
 
 EXPOSE 8080
 WORKDIR /faustservice
+RUN mkdir /tmp/sessions
 CMD ./faustweb --port 8080
 
